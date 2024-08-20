@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #predictedPrice {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>House Price Prediction</h1>
+    </header>
+    <main>
+        <p>Welcome to House Price Prediction Model!</p>
+
+        <form id="predictionForm">
+            <label for="numberOfRooms">Rooms:</label>
+            <select id="numberOfRooms" name="numberOfRooms">
+                <option value="" disabled selected>Select number of rooms</option>
+                {% for room in Rooms %}
+                    <option value="{{ room }}">{{ room }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="hasYard">Has Yard:</label>
+            <select id="hasYard" name="hasYard">
+                <option value="" disabled selected>Select if has a yard</option>
+                {% for yard in Yard %}
+                    <option value="{{ yard }}">{{ yard }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="hasPool">Has Pool:</label>
+            <select id="hasPool" name="hasPool">
+                <option value="" disabled selected>Select if has a pool</option>
+                {% for pool in Pool %}
+                    <option value="{{ pool }}">{{ pool }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="floors">Floors:</label>
+            <select id="floors" name="floors">
+                <option value="" disabled selected>Select number of floors</option>
+                {% for floor in Floors %}
+                    <option value="{{ floor }}">{{ floor }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="cityCode">City Code:</label>
+            <select id="cityCode" name="cityCode">
+                <option value="" disabled selected>Select city code</option>
+                {% for code in CityCode %}
+                    <option value="{{ code }}">{{ code }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="cityPartRange">City Part Range:</label>
+            <select id="cityPartRange" name="cityPartRange">
+                <option value="" disabled selected>Select city part range</option>
+                {% for range in CityPartRange %}
+                    <option value="{{ range }}">{{ range }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="numPrevOwners">Number of Previous Owners:</label>
+            <select id="numPrevOwners" name="numPrevOwners">
+                <option value="" disabled selected>Select number of previous owners</option>
+                {% for owner in NumPrevOwners %}
+                    <option value="{{ owner }}">{{ owner }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="made">Year Built:</label>
+            <select id="made" name="made">
+                <option value="" disabled selected>Select year built</option>
+                {% for year in Year %}
+                    <option value="{{ year }}">{{ year }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="isNewBuilt">Is New Built:</label>
+            <select id="isNewBuilt" name="isNewBuilt">
+                <option value="" disabled selected>Select if new built</option>
+                {% for newBuilt in IsNewBuilt %}
+                    <option value="{{ newBuilt }}">{{ newBuilt }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="hasStormProtector">Has Storm Protector:</label>
+            <select id="hasStormProtector" name="hasStormProtector">
+                <option value="" disabled selected>Select if has storm protector</option>
+                {% for stormProtector in StormProtector %}
+                    <option value="{{ stormProtector }}">{{ stormProtector }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="basement">Basement:</label>
+            <select id="basement" name="basement">
+                <option value="" disabled selected>Select if has basement</option>
+                {% for base in Basement %}
+                    <option value="{{ base }}">{{ base }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="attic">Attic:</label>
+            <select id="attic" name="attic">
+                <option value="" disabled selected>Select if has attic</option>
+                {% for attic in Attic %}
+                    <option value="{{ attic }}">{{ attic }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="garage">Garage:</label>
+            <select id="garage" name="garage">
+                <option value="" disabled selected>Select if has garage</option>
+                {% for garage in Garage %}
+                    <option value="{{ garage }}">{{ garage }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="hasStorageRoom">Has Storage Room:</label>
+            <select id="hasStorageRoom" name="hasStorageRoom">
+                <option value="" disabled selected>Select if has storage room</option>
+                {% for storage in StorageRoom %}
+                    <option value="{{ storage }}">{{ storage }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="hasGuestRoom">Has Guest Room:</label>
+            <select id="hasGuestRoom" name="hasGuestRoom">
+                <option value="" disabled selected>Select if has guest room</option>
+                {% for guest in GuestRoom %}
+                    <option value="{{ guest }}">{{ guest }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="squareMeters">Size (Square Meters):</label>
+            <select id="squareMeters" name="squareMeters">
+                <option value="" disabled selected>Select size in square meters</option>
+                {% for size in Size %}
+                    <option value="{{ size }}">{{ size }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Predict Price</button>
+        </form>
+
+        <div id="predictedPrice">
+            <!-- Predicted price will be displayed here -->
+        </div>
+    </main>
+    <footer>
+        &copy; 2024 House Price Prediction
+    </footer>
+
+    <script>
+        document.getElementById('predictionForm').onsubmit = async function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData
+            });
+            const price = await response.text();
+            document.getElementById('predictedPrice').innerText = 'Predicted Price: $' + price;
+        };
+    </script>
+</body>
+</html>
